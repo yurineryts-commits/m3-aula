@@ -36,4 +36,19 @@ export class Cardapio{
         }
     }
 
+    buscar(nome: string): ItemCardapio | undefined{
+
+        for( let i = 0; i < this.itens.length; i++){
+        if( this.itens[i].nome=== nome){
+
+            return this.itens[i];
+        }
+
+
+    }
+
+    return undefined;
+}
+
+
 }

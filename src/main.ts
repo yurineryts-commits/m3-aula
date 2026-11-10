@@ -37,16 +37,35 @@
 
 
 import { ItemComanda, Comanda } from "./comanda";
-
+import { Cardapio } from "./cardapio";
+const cardapio = new Cardapio("dados/cardapio.json")
+console.log(cardapio.itens.length , "itens no cardapio");
+console.log("Recusados: " , cardapio.itens.length , cardapio.recusados);
 
 const mesa7= new Comanda(7)
-const burguer = new ItemComanda("X-Burguer",18.00,1)
+const pedido = ["x-burguer", "refrigerante lata", "batata frita"]
 
-mesa7.adicionar(burguer);
+for(let i=0; i< pedido.length; i++){
+
+    const item= cardapio.buscar(pedido[i])
+    if( item === undefined){
+
+        console.log(pedido[i], " não esta no cardapio")
+    }
+    else{
+
+        mesa7.adicionar(new ItemComanda(item.nome, item.preco_centavos, 1))
+    }
+
+}
+
+// const burguer = new ItemComanda("X-Burguer",18.00,1)
+
+// mesa7.adicionar(burguer);
 // mesa7.adicionar(new ItemComanda("X-Burguer",19.00,1))
 // mesa7.adicionar(new ItemComanda("X-Burguer",20.00,1))
 
-console.log(mesa7.fechar)
-console.log(burguer.subTotal())
-// console.log(burguer)
-console.log(burguer.nome)
+console.log(mesa7.fechar())
+// console.log(burguer.subTotal())
+// // console.log(burguer)
+// console.log(burguer.nome)
