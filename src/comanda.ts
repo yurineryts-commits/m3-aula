@@ -12,12 +12,20 @@ function subTotal(preco: number, qtd: number):number{
 
 export class ItemComanda{
 
-      nome: string;
-      precoCentavos: number;
-      quantidade: number;
+      readonly nome: string;
+      readonly precoCentavos: number;
+      readonly quantidade: number;
 
       constructor(nome: string, precoCentavos: number, quantidade: number){
+        if(precoCentavos <0){
 
+            throw new Error("Preço negativo em" + nome)
+        }
+
+        if(quantidade<=0){
+
+        throw new Error("Quantidade precisa ser maior que zero em" + nome)
+        }
         this.nome=nome;
         this.precoCentavos=precoCentavos;
         this.quantidade= quantidade;
@@ -33,9 +41,9 @@ export class ItemComanda{
 
 export class Comanda{
 
-            mesa: number;
-            itens: ItemComanda[]=[];
-            aberta: boolean=true;
+            readonly mesa: number;
+            private itens: ItemComanda[]=[];
+            private aberta: boolean=true;
 
             constructor(mesa:number){
 
@@ -43,13 +51,15 @@ export class Comanda{
 
             }
 
-            adicionar(item: ItemComanda):void{
+            adicionar(item: ItemComanda):boolean{
 
                 if(this.aberta===true){
 
                     this.itens.push(item)
+                    return true;
 
                 }
+                 return false;
 
             }
 
